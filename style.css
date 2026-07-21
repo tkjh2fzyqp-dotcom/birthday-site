@@ -1,0 +1,313 @@
+/* ===========================
+   RESET
+=========================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    background:#050505;
+    color:#fff;
+    font-family:'Inter',sans-serif;
+    overflow-x:hidden;
+}
+
+/* ===========================
+   LOADER
+=========================== */
+
+#loader{
+    position:fixed;
+    inset:0;
+    background:#050505;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    z-index:9999;
+}
+
+.loader-content{
+    width:80%;
+    max-width:350px;
+    text-align:center;
+}
+
+.loader-content h2{
+    font-weight:400;
+    margin-bottom:20px;
+    color:#ffd4e4;
+}
+
+.loading-bar{
+    width:100%;
+    height:8px;
+    background:#222;
+    border-radius:20px;
+    overflow:hidden;
+}
+
+.loading-bar span{
+    display:block;
+    width:0%;
+    height:100%;
+    background:linear-gradient(90deg,#ffffff,#ffb6d9);
+    animation:loading 3s forwards;
+}
+
+@keyframes loading{
+    to{
+        width:100%;
+    }
+}
+
+/* ===========================
+   HERO
+=========================== */
+
+.hero{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    position:relative;
+    padding:30px;
+}
+
+.hero::before{
+    content:"";
+    position:absolute;
+    width:350px;
+    height:350px;
+    background:#ff9fc6;
+    filter:blur(140px);
+    opacity:.25;
+    border-radius:50%;
+}
+
+.hero-content{
+    position:relative;
+    z-index:2;
+    max-width:700px;
+}
+
+.date{
+    color:#ffc4dd;
+    letter-spacing:4px;
+    margin-bottom:15px;
+}
+
+h1{
+    font-family:'Playfair Display',serif;
+    font-size:64px;
+    line-height:1.1;
+}
+
+h2{
+    font-family:'Playfair Display',serif;
+    font-size:36px;
+    color:#ffd4e4;
+    margin:15px 0;
+}
+
+.hero p{
+    font-size:18px;
+    line-height:1.8;
+    opacity:.85;
+    margin-top:15px;
+}
+
+button{
+    margin-top:40px;
+    padding:18px 42px;
+    border:none;
+    border-radius:999px;
+    background:white;
+    color:black;
+    cursor:pointer;
+    font-size:16px;
+    transition:.35s;
+}
+
+button:hover{
+    transform:translateY(-4px) scale(1.04);
+    box-shadow:0 15px 35px rgba(255,255,255,.15);
+}
+
+/* ===========================
+   SECTIONS
+=========================== */
+
+section{
+    padding:120px 25px;
+}
+
+.hidden{
+    display:none;
+}
+
+section h2{
+    text-align:center;
+    margin-bottom:40px;
+}
+
+/* ===========================
+   INTRO
+=========================== */
+
+#intro p{
+    max-width:700px;
+    margin:auto;
+    text-align:center;
+    font-size:20px;
+    line-height:2;
+}
+
+/* ===========================
+   REASONS
+=========================== */
+
+.cards{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+    gap:22px;
+    max-width:1000px;
+    margin:auto;
+}
+
+.card{
+    padding:35px;
+    border-radius:22px;
+    background:rgba(255,255,255,.05);
+    border:1px solid rgba(255,255,255,.08);
+    backdrop-filter:blur(12px);
+    transition:.35s;
+    text-align:center;
+}
+
+.card:hover{
+    transform:translateY(-8px);
+    border-color:#ffc8df;
+    box-shadow:0 20px 40px rgba(255,182,217,.15);
+}
+
+/* ===========================
+   GALLERY
+=========================== */
+
+.photos{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:20px;
+    max-width:1000px;
+    margin:auto;
+}
+
+.photos img{
+    width:100%;
+    border-radius:18px;
+    object-fit:cover;
+    aspect-ratio:4/5;
+    transition:.35s;
+}
+
+.photos img:hover{
+    transform:scale(1.03);
+}
+
+/* ===========================
+   LETTER
+=========================== */
+
+#letter p{
+    max-width:750px;
+    margin:auto;
+    text-align:center;
+    line-height:2;
+    font-size:18px;
+    white-space:pre-line;
+}
+
+/* ===========================
+   CONFETTI
+=========================== */
+
+#confetti{
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+}
+
+/* ===========================
+   STARS
+=========================== */
+
+#stars{
+    position:absolute;
+    inset:0;
+    overflow:hidden;
+}
+
+#stars::before,
+#stars::after{
+    content:"";
+    position:absolute;
+    width:2px;
+    height:2px;
+    background:white;
+    border-radius:50%;
+    box-shadow:
+        30px 60px white,
+        100px 120px white,
+        160px 240px white,
+        250px 70px white,
+        340px 310px white,
+        500px 140px white,
+        700px 200px white,
+        900px 80px white,
+        1000px 350px white,
+        1200px 160px white,
+        1400px 240px white,
+        1550px 110px white;
+    animation:twinkle 4s infinite alternate;
+}
+
+@keyframes twinkle{
+    from{
+        opacity:.3;
+    }
+    to{
+        opacity:1;
+    }
+}
+
+/* ===========================
+   MOBILE
+=========================== */
+
+@media(max-width:768px){
+
+h1{
+    font-size:46px;
+}
+
+h2{
+    font-size:28px;
+}
+
+.hero p{
+    font-size:16px;
+}
+
+button{
+    width:100%;
+}
+
+}
