@@ -1,55 +1,68 @@
 /* ===========================
-   LOADER
+   LOADING SCREEN
 =========================== */
 
 window.addEventListener("load", () => {
-
     setTimeout(() => {
+        const loader = document.getElementById("loading-screen");
 
-        document.getElementById("loader").style.opacity = "0";
+        if (loader) {
+            loader.style.opacity = "0";
 
-        setTimeout(() => {
-
-            document.getElementById("loader").style.display = "none";
-
-        },600);
-
-    },2800);
-
+            setTimeout(() => {
+                loader.style.display = "none";
+            }, 600);
+        }
+    }, 2500);
 });
+
+
+/* ===========================
+   ELEMENTS
+=========================== */
+
+const startBtn = document.getElementById("begin");
+const intro = document.getElementById("intro");
+const reasons = document.getElementById("reasons");
+const gallery = document.getElementById("gallery");
+const letter = document.getElementById("letter");
+const typing = document.getElementById("typing");
+
 
 /* ===========================
    BEGIN BUTTON
 =========================== */
 
-const startBtn = document.getElementById("startBtn");
+if (startBtn) {
 
-const intro = document.getElementById("intro");
-const reasons = document.getElementById("reasons");
-const gallery = document.getElementById("gallery");
-const letter = document.getElementById("letter");
+    startBtn.addEventListener("click", () => {
 
-startBtn.addEventListener("click",()=>{
+        [intro, reasons, gallery, letter].forEach(section => {
 
-    intro.classList.remove("hidden");
-    reasons.classList.remove("hidden");
-    gallery.classList.remove("hidden");
-    letter.classList.remove("hidden");
+            if (section) {
+                section.classList.remove("hidden");
+            }
 
-    intro.scrollIntoView({
-        behavior:"smooth"
+        });
+
+        if (intro) {
+            intro.scrollIntoView({
+                behavior: "smooth"
+            });
+        }
+
+        typeWriter();
+
     });
 
-    typeWriter();
+}
 
-});
 
 /* ===========================
    TYPEWRITER
 =========================== */
 
-const text =
-`I wanted to make you something that couldn't fit inside a message.
+const text = `I wanted to make you something that couldn't fit inside a message.
 
 Not just another "Happy Birthday."
 
@@ -64,85 +77,86 @@ there's someone who's genuinely grateful that today exists.
 Because today gave the world you.
 
 Happy Birthday,
-My Little Angel. 🤍`;
+My Little Angel. 🤍
 
-let i = 0;
+— Yours' Truly`;
 
-function typeWriter(){
+function typeWriter() {
 
-    const target = document.getElementById("typing");
+    if (!typing) return;
 
-    target.innerHTML="";
+    typing.innerHTML = "";
 
-    function type(){
+    let i = 0;
 
-        if(i < text.length){
+    function write() {
 
-            target.innerHTML += text.charAt(i);
+        if (i < text.length) {
+
+            typing.innerHTML += text.charAt(i);
 
             i++;
 
-            setTimeout(type,28);
+            setTimeout(write, 28);
 
         }
 
     }
 
-    type();
+    write();
 
 }
+
 
 /* ===========================
    REASON CARDS
 =========================== */
 
-document.querySelectorAll(".card").forEach(card=>{
+document.querySelectorAll(".card").forEach(card => {
 
-    card.addEventListener("click",()=>{
+    card.addEventListener("click", () => {
 
-        card.style.transform="scale(1.08)";
+        card.style.transform = "scale(1.05)";
 
-        setTimeout(()=>{
+        setTimeout(() => {
 
-            card.style.transform="scale(1)";
+            card.style.transform = "scale(1)";
 
-        },180);
+        }, 180);
 
     });
 
 });
 
+
 /* ===========================
-   IMAGE POPUP
+   PHOTO POPUP
 =========================== */
 
-document.querySelectorAll(".photos img").forEach(img=>{
+document.querySelectorAll(".photos img").forEach(img => {
 
-    img.addEventListener("click",()=>{
+    img.addEventListener("click", () => {
 
-        const overlay=document.createElement("div");
+        const overlay = document.createElement("div");
 
-        overlay.style.position="fixed";
-        overlay.style.top="0";
-        overlay.style.left="0";
-        overlay.style.width="100%";
-        overlay.style.height="100%";
-        overlay.style.background="rgba(0,0,0,.9)";
-        overlay.style.display="flex";
-        overlay.style.justifyContent="center";
-        overlay.style.alignItems="center";
-        overlay.style.zIndex="9999";
+        overlay.style.position = "fixed";
+        overlay.style.inset = "0";
+        overlay.style.background = "rgba(0,0,0,.9)";
+        overlay.style.display = "flex";
+        overlay.style.alignItems = "center";
+        overlay.style.justifyContent = "center";
+        overlay.style.zIndex = "9999";
 
-        const image=document.createElement("img");
+        const image = document.createElement("img");
 
-        image.src=img.src;
-        image.style.maxWidth="90%";
-        image.style.maxHeight="90%";
-        image.style.borderRadius="20px";
+        image.src = img.src;
+        image.style.maxWidth = "90%";
+        image.style.maxHeight = "90%";
+        image.style.borderRadius = "18px";
 
         overlay.appendChild(image);
 
-        overlay.onclick=()=>overlay.remove();
+        overlay.addEventListener("click", () => overlay.remove());
 
         document.body.appendChild(overlay);
 
@@ -150,83 +164,21 @@ document.querySelectorAll(".photos img").forEach(img=>{
 
 });
 
+
 /* ===========================
-   CONFETTI
+   HUG COUPON
 =========================== */
 
-const canvas=document.getElementById("confetti");
-const ctx=canvas.getContext("2d");
+const hug = document.getElementById("hug");
 
-canvas.width=window.innerWidth;
-canvas.height=window.innerHeight;
+if (hug) {
 
-let pieces=[];
+    hug.addEventListener("click", () => {
 
-function Piece(){
-
-    this.x=Math.random()*canvas.width;
-    this.y=Math.random()*canvas.height-canvas.height;
-
-    this.r=5+Math.random()*6;
-
-    this.speed=2+Math.random()*3;
-
-    this.color=["#ffffff","#ffd1e3","#ff9fc6","#ffe8f2"][Math.floor(Math.random()*4)];
-
-}
-
-function createPieces(){
-
-    pieces=[];
-
-    for(let i=0;i<180;i++){
-
-        pieces.push(new Piece());
-
-    }
-
-}
-
-function animate(){
-
-    ctx.clearRect(0,0,canvas.width,canvas.height);
-
-    pieces.forEach(p=>{
-
-        ctx.beginPath();
-
-        ctx.fillStyle=p.color;
-
-        ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-
-        ctx.fill();
-
-        p.y+=p.speed;
-
-        if(p.y>canvas.height){
-
-            p.y=-20;
-
-        }
-
-    });
-
-    requestAnimationFrame(animate);
-
-}
-
-animate();
-
-document.getElementById("hug").addEventListener("click",()=>{
-
-    createPieces();
-
-    alert(`🎟
-
-Birthday Hug Coupon
+        alert(`🤍 Birthday Hug Coupon
 
 Owner:
-My Little Angel 🤍
+My Little Angel
 
 Redeem:
 Anytime.
@@ -234,17 +186,71 @@ Anytime.
 Expiry:
 Never.
 
-— Yours' Truly`);
+Love,
+Yours' Truly`);
 
-});
+    });
+
+}
+
 
 /* ===========================
-   RESIZE
+   OPTIONAL CONFETTI
 =========================== */
 
-window.addEventListener("resize",()=>{
+const canvas = document.getElementById("confetti");
 
-    canvas.width=window.innerWidth;
-    canvas.height=window.innerHeight;
+if (canvas) {
 
-});
+    const ctx = canvas.getContext("2d");
+
+    function resize() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    }
+
+    resize();
+
+    const pieces = [];
+
+    for (let i = 0; i < 120; i++) {
+
+        pieces.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            r: 2 + Math.random() * 5,
+            s: 1 + Math.random() * 3,
+            c: ["#fff", "#ffd6e8", "#ffb6d9", "#ffeef7"][Math.floor(Math.random() * 4)]
+        });
+
+    }
+
+    function animate() {
+
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        pieces.forEach(p => {
+
+            ctx.beginPath();
+            ctx.fillStyle = p.c;
+            ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+            ctx.fill();
+
+            p.y += p.s;
+
+            if (p.y > canvas.height) {
+                p.y = -10;
+                p.x = Math.random() * canvas.width;
+            }
+
+        });
+
+        requestAnimationFrame(animate);
+
+    }
+
+    animate();
+
+    window.addEventListener("resize", resize);
+
+}
